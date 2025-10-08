@@ -1,251 +1,163 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keturunan Pa Saman</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keluarga Pa Saman</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #e7dcc5 0%, #d4c1a0 45%, #bfa886 100%);
-      color: #3b2f25;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      overflow-x: hidden;
-      animation: fadeIn 2s ease;
-      font-family: 'Quicksand', sans-serif;
-    }
-
-    header {
-      text-align: center;
-      margin-top: 60px;
-      margin-bottom: 40px;
-    }
-
-    header h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 2.6rem;
-      letter-spacing: 1px;
-      color: #3a2b1f;
-      animation: titleFade 2s ease;
-    }
-
-    header p {
-      margin-top: 10px;
-      font-size: 1.1rem;
-      color: #5b4634;
-      opacity: 0.8;
-    }
-
-    .tree {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: slideUp 2s ease;
-    }
-
-    .member {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(120, 90, 60, 0.3);
-      border-radius: 12px;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-      backdrop-filter: blur(8px);
-      transition: all 0.4s ease;
-    }
-
-    .member:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: scale(1.07);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
-    }
-
-    .children {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #f7e7ce, #f4d1a8);
+      font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
     }
 
-    .line {
-      width: 2px;
-      height: 25px;
-      background: rgba(90, 70, 50, 0.6);
-      margin: 8px auto;
+    h1 {
+      font-size: 2.5em;
+      color: #3e2b1c;
+      cursor: pointer;
+      transition: transform 0.4s ease, color 0.3s;
     }
 
-    footer {
-      margin-top: 60px;
-      margin-bottom: 30px;
-      font-size: 0.9rem;
-      color: #4a3a2a;
-      opacity: 0.7;
+    h1:hover {
+      color: #8b5e3b;
+      transform: scale(1.05);
     }
 
     .desc {
-      display: none;
-      background: rgba(255,255,255,0.85);
-      border-radius: 14px;
-      padding: 1.3rem;
-      margin-top: 2rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      max-width: 380px;
-      text-align: center;
-      font-size: 1rem;
-      line-height: 1.6;
-      animation: fadeIn 0.6s ease;
+      color: #5a4632;
+      font-size: 1em;
+      margin-top: 10px;
+      opacity: 0.8;
     }
 
-    /* === Animations === */
+    .fade {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes titleFade {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Glowing line */
-    .line::after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, rgba(200,150,100,0.4), transparent);
-      animation: glow 2s infinite alternate ease-in-out;
-    }
-
-    @keyframes glow {
-      from { opacity: 0.4; }
-      to { opacity: 1; }
-    }
-
-    /* Music button */
-    #musicControl {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid #c2a782;
+    /* 🌸 Animasi bunga */
+    .flower {
+      position: absolute;
+      background: radial-gradient(circle, pink 40%, transparent 41%);
       border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      z-index: 999;
+      width: 10px;
+      height: 10px;
+      animation: spin 20s linear infinite;
+      opacity: 0.5;
     }
 
-    #musicControl:hover {
-      transform: scale(1.1);
-      background: rgba(255,255,255,0.95);
+    @keyframes spin {
+      from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9em;
+      color: #6a4a2b;
+      opacity: 0.7;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Keturunan Pa Saman</h1>
-    <p>Silsilah keluarga dari generasi ke generasi</p>
-  </header>
+  <!-- 🌸 bunga acak -->
+  <script>
+    for (let i = 0; i < 15; i++) {
+      const f = document.createElement('div');
+      f.classList.add('flower');
+      f.style.left = Math.random() * 100 + 'vw';
+      f.style.top = Math.random() * 100 + 'vh';
+      f.style.animationDuration = 15 + Math.random() * 10 + 's';
+      f.style.width = f.style.height = 8 + Math.random() * 8 + 'px';
+      document.body.appendChild(f);
+    }
+  </script>
 
-  <div class="tree">
-    <div class="member" onclick="showDesc('paSaman')">Pa Saman</div>
-    <div class="line"></div>
-    <div class="children">
-      <div>
-        <div class="member" onclick="showDesc('paaki')">Enang Efendi (Paaki)</div>
-        <div class="line"></div>
-        <div class="children">
-          <div>
-            <div class="member" onclick="showDesc('aep')">Aep Saefudin</div>
-            <div class="line"></div>
-            <div class="children">
-              <div class="member" onclick="showDesc('naoval')">Naoval Luthfi</div>
-              <div class="member" onclick="showDesc('reyhan')">Reyhan</div>
-            </div>
-          </div>
-          <div>
-            <div class="member" onclick="showDesc('umi')">Umi</div>
-            <div class="line"></div>
-            <div class="children">
-              <div class="member" onclick="showDesc('agung')">Agung</div>
-              <div class="member" onclick="showDesc('atta')">Atta</div>
-              <div class="member" onclick="showDesc('mentari')">Mentari</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- 🌳 Konten silsilah -->
+  <div id="tree" class="fade">
+    <h1 onclick="next('paaki')">👴 Pa Saman</h1>
   </div>
 
-  <div id="descBox" class="desc"></div>
+  <p class="desc" id="desc"></p>
 
   <footer>© 2025 Keluarga Pa Saman</footer>
 
-  <!-- 🎵 Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2023/03/14/audio_41b30cbf2a.mp3?filename=soft-piano-ambient-141287.mp3" type="audio/mpeg">
-  </audio>
-
-  <div id="musicControl" onclick="toggleMusic()">🔈</div>
-
   <script>
-    const descData = {
-      paSaman: "Pa Saman — sosok buyut yang menjadi akar keluarga besar ini, dikenal bijak dan disegani masyarakat.",
-      paaki: "Enang Efendi (Paaki) — anak dari Pa Saman, dikenal sebagai sosok penuh kasih dan berjiwa pemimpin.",
-      aep: "Aep Saefudin — anak dari Paaki, pekerja keras dan penyayang, panutan generasi berikutnya.",
-      naoval: "Naoval Luthfi — pribadi kalem dan cerdas, penerus keluarga yang berkarakter tenang.",
-      reyhan: "Reyhan — sosok kreatif, berpikiran terbuka, dan penuh semangat dalam menjalani hidup.",
-      umi: "Umi — anak dari Paaki, wanita lembut dan bijak, pengikat kasih antar keluarga.",
-      agung: "Agung — ramah, rajin, dan sosok penyejuk dalam keluarga.",
-      atta: "Atta — ceria, humoris, dan membawa tawa di setiap suasana.",
-      mentari: "Mentari — penuh cahaya dan energi positif, membawa kehangatan di setiap langkah."
+    const tree = document.getElementById('tree');
+    const desc = document.getElementById('desc');
+
+    const data = {
+      "paaki": {
+        name: "Pa Aki (Enang Efendi)",
+        desc: "Putra dari Pa Saman, sosok bijak dan dihormati di keluarga.",
+        children: ["aep", "umi"]
+      },
+      "aep": {
+        name: "Aep Saefudin",
+        desc: "Anak pertama Pa Aki.",
+        children: ["naoval", "rey"]
+      },
+      "umi": {
+        name: "Umi",
+        desc: "Anak kedua Pa Aki.",
+        children: ["agung"]
+      },
+      "agung": {
+        name: "Agung",
+        desc: "Anak pertama dari Umi.",
+        children: ["atta", "mentari"]
+      },
+      "atta": {
+        name: "Atta",
+        desc: "Anak Agung yang ceria.",
+        children: []
+      },
+      "mentari": {
+        name: "Mentari",
+        desc: "Putri Agung yang penuh semangat.",
+        children: []
+      },
+      "naoval": {
+        name: "Naoval Luthfi",
+        desc: "Anak pertama Aep Saefudin.",
+        children: []
+      },
+      "rey": {
+        name: "Reyhan",
+        desc: "Anak kedua Aep Saefudin.",
+        children: []
+      }
     };
 
-    const bgMusic = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicControl');
-    let isPlaying = false;
+    function next(key) {
+      const person = data[key];
+      if (!person) return;
 
-    function toggleMusic() {
-      if (!isPlaying) {
-        bgMusic.play();
-        musicBtn.textContent = '🔊';
-      } else {
-        bgMusic.pause();
-        musicBtn.textContent = '🔈';
-      }
-      isPlaying = !isPlaying;
-    }
+      tree.innerHTML = `<h1>${person.name}</h1>`;
+      desc.textContent = person.desc;
 
-    function showDesc(key) {
-      const box = document.getElementById("descBox");
-      box.innerHTML = descData[key] || "Tidak ada keterangan.";
-      box.style.display = "block";
-      box.scrollIntoView({ behavior: "smooth", block: "center" });
+      person.children.forEach(child => {
+        const childEl = document.createElement('h1');
+        childEl.textContent = data[child].name;
+        childEl.onclick = () => next(child);
+        tree.appendChild(childEl);
+      });
+
+      tree.classList.remove('fade');
+      void tree.offsetWidth; // reset animation
+      tree.classList.add('fade');
     }
   </script>
 </body>
