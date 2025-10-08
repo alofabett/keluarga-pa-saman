@@ -9,47 +9,19 @@
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      background: linear-gradient(to bottom right, #f7e7ce, #f4d1a8);
+      background: linear-gradient(to bottom right, #f8ede3, #e9dac1);
       font-family: 'Poppins', sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       position: relative;
     }
 
-    h1 {
-      font-size: 2.5em;
-      color: #3e2b1c;
-      cursor: pointer;
-      transition: transform 0.4s ease, color 0.3s;
-    }
-
-    h1:hover {
-      color: #8b5e3b;
-      transform: scale(1.05);
-    }
-
-    .desc {
-      color: #5a4632;
-      font-size: 1em;
-      margin-top: 10px;
-      opacity: 0.8;
-    }
-
-    .fade {
-      animation: fadeIn 0.6s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* 🌸 Animasi bunga */
+    /* 🌸 Bunga animasi */
     .flower {
       position: absolute;
-      background: radial-gradient(circle, pink 40%, transparent 41%);
+      background: radial-gradient(circle, #f7b7c0 40%, transparent 41%);
       border-radius: 50%;
       width: 10px;
       height: 10px;
@@ -62,19 +34,84 @@
       to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
     }
 
+    /* 🌳 Struktur keluarga */
+    .bubble {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff3e0;
+      border: 2px solid #b67b4f;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      margin: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, background 0.3s;
+    }
+
+    .bubble:hover {
+      transform: scale(1.05);
+      background: #ffefd5;
+    }
+
+    .bubble h2 {
+      font-size: 1.1em;
+      color: #5a3b1e;
+      text-align: center;
+      margin: 0;
+      padding: 5px;
+    }
+
+    .bubble span {
+      font-size: 0.8em;
+      color: #8b5e3b;
+    }
+
+    .fade {
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     footer {
       position: absolute;
-      bottom: 20px;
+      bottom: 10px;
       font-size: 0.9em;
       color: #6a4a2b;
       opacity: 0.7;
+    }
+
+    h1 {
+      color: #3e2b1c;
+      margin-bottom: 15px;
+      font-size: 1.6em;
+      text-align: center;
+    }
+
+    #desc {
+      color: #5a4632;
+      text-align: center;
+      font-size: 1em;
+      max-width: 80%;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
     }
   </style>
 </head>
 <body>
   <!-- 🌸 bunga acak -->
   <script>
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 18; i++) {
       const f = document.createElement('div');
       f.classList.add('flower');
       f.style.left = Math.random() * 100 + 'vw';
@@ -85,12 +122,15 @@
     }
   </script>
 
-  <!-- 🌳 Konten silsilah -->
-  <div id="tree" class="fade">
-    <h1 onclick="next('paaki')">👴 Pa Saman</h1>
-  </div>
+  <h1 id="title">🌳 Keluarga Pa Saman 🌳</h1>
+  <p id="desc" class="fade">Klik untuk melihat keturunan berikutnya</p>
 
-  <p class="desc" id="desc"></p>
+  <div id="tree" class="container fade">
+    <div class="bubble" onclick="next('paaki')">
+      <h2>Pa Saman</h2>
+      <span>Kakek buyut keluarga</span>
+    </div>
+  </div>
 
   <footer>© 2025 Keluarga Pa Saman</footer>
 
@@ -101,42 +141,61 @@
     const data = {
       "paaki": {
         name: "Pa Aki (Enang Efendi)",
-        desc: "Putra dari Pa Saman, sosok bijak dan dihormati di keluarga.",
-        children: ["aep", "umi"]
+        role: "Anak dari Pa Saman",
+        desc: "Sosok bijak, pernah menjabat RW di Gang Kelinci.",
+        children: [
+          { key: "aep", order: "Anak ke-1" },
+          { key: "umi", order: "Anak ke-2" }
+        ]
       },
       "aep": {
         name: "Aep Saefudin",
-        desc: "Anak pertama Pa Aki.",
-        children: ["naoval", "rey"]
+        role: "Anak pertama Pa Aki",
+        desc: "Pribadi tenang, pekerja keras.",
+        children: [
+          { key: "naoval", order: "Anak ke-1" },
+          { key: "rey", order: "Anak ke-2" }
+        ]
       },
       "umi": {
         name: "Umi",
-        desc: "Anak kedua Pa Aki.",
-        children: ["agung"]
+        role: "Anak kedua Pa Aki",
+        desc: "Wanita yang lembut dan penyayang.",
+        children: [
+          { key: "agung", order: "Anak ke-1" }
+        ]
       },
       "agung": {
         name: "Agung",
-        desc: "Anak pertama dari Umi.",
-        children: ["atta", "mentari"]
+        role: "Anak pertama Umi",
+        desc: "Pria yang bijak dan penuh tanggung jawab.",
+        children: [
+          { key: "atta", order: "Anak ke-1" },
+          { key: "mentari", order: "Anak ke-2" }
+        ]
       },
       "atta": {
         name: "Atta",
-        desc: "Anak Agung yang ceria.",
+        role: "Anak pertama Agung",
+        desc: "Anak yang ceria dan aktif.",
         children: []
       },
       "mentari": {
         name: "Mentari",
-        desc: "Putri Agung yang penuh semangat.",
+        role: "Anak kedua Agung",
+        desc: "Penuh semangat dan optimisme.",
         children: []
       },
       "naoval": {
         name: "Naoval Luthfi",
-        desc: "Anak pertama Aep Saefudin.",
+        role: "Anak pertama Aep",
+        desc: "Rajin dan sopan.",
         children: []
       },
       "rey": {
         name: "Reyhan",
-        desc: "Anak kedua Aep Saefudin yg paling sigma.",
+        role: "Anak kedua Aep",
+        desc: "Orang sigma 😎.",
         children: []
       }
     };
@@ -145,19 +204,28 @@
       const person = data[key];
       if (!person) return;
 
-      tree.innerHTML = `<h1>${person.name}</h1>`;
-      desc.textContent = person.desc;
+      desc.innerHTML = `${person.desc}`;
+      tree.innerHTML = "";
 
-      person.children.forEach(child => {
-        const childEl = document.createElement('h1');
-        childEl.textContent = data[child].name;
-        childEl.onclick = () => next(child);
-        tree.appendChild(childEl);
-      });
+      const parentBubble = document.createElement('div');
+      parentBubble.className = "bubble fade";
+      parentBubble.style.width = "170px";
+      parentBubble.style.height = "170px";
+      parentBubble.innerHTML = `<h2 style="font-size:1.3em">${person.name}</h2><span>${person.role}</span>`;
+      tree.appendChild(parentBubble);
 
-      tree.classList.remove('fade');
-      void tree.offsetWidth; // reset animation
-      tree.classList.add('fade');
+      setTimeout(() => {
+        person.children.forEach(child => {
+          const c = data[child.key];
+          const childBubble = document.createElement('div');
+          childBubble.className = "bubble fade";
+          childBubble.style.width = "130px";
+          childBubble.style.height = "130px";
+          childBubble.innerHTML = `<h2>${c.name}</h2><span>${child.order}</span>`;
+          childBubble.onclick = () => next(child.key);
+          tree.appendChild(childBubble);
+        });
+      }, 300);
     }
   </script>
 </body>
